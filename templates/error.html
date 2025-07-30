@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Erro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+    body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        height: 100vh;
+        background: url("{{ url_for('static', filename='img/cinema.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.92);
+        padding: 2rem 3rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+        color: #444;
+    }
+
+    a {
+        display: inline-block;
+        margin-top: 1.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #4285f4;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+    }
+
+    a:hover {
+        background-color: #357ae8;
+    }
+</style>
+
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-icon">⚠️</div>
+        <div class="error-title">Ano inválido!</div>
+        <p class="error-text">O ano informado está fora do intervalo permitido pela base de dados (1960 a 2024).</p>
+        <a href="/">← Voltar ao início</a>
+    </div>
+</body>
+</html>

@@ -69,5 +69,5 @@ print(classification_report(y_test, y_pred, target_names=le_target.classes_))
 
 # 12. Salvar modelo e encoders
 joblib.dump(model, "modelo_naive_bayes.pkl")
-joblib.dump(label_encoders, "encoders.pkl")
+joblib.dump(label_encoders, "label_encoders.pkl")
 joblib.dump(le_target, "target_encoder.pkl")
