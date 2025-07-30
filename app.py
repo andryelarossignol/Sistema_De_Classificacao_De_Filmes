@@ -25,7 +25,16 @@ durations = sorted(set(d for d in df['duration'].dropna() if is_valid_duration(d
 ratings = sorted(df['rating_mpa'].dropna().unique())
 ratings = [r for r in ratings if str(r).strip().lower() != 'nan' and str(r).strip() != '']
 genres = sorted(df['genre'].dropna().unique())
-countries = sorted(df['country_origin'].dropna().unique())  # Atualizado para 'country_origin'
+countries = (
+    df['country_origin']
+    .dropna()
+    .apply(lambda x: [c.strip() for c in x.split(',')])
+    .explode()
+    .dropna()
+    .unique()
+)
+# Converte para lista e ordena
+countries = sorted(countries)
 languages = sorted(df['language'].dropna().unique())
 
 # Página inicial com o formulário
