@@ -1,10 +1,14 @@
 from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import joblib
 import pandas as pd
 import re
 
 # Inicializa a aplicação Flask
 app = Flask(__name__)
+
+# Configura a chave secreta para sessões
+app.secret_key = 'previsao'
 
 # Carrega o modelo treinado
 model = joblib.load('modelo_naive_bayes.pkl')
@@ -13,71 +17,63 @@ model = joblib.load('modelo_naive_bayes.pkl')
 label_encoders = joblib.load('label_encoders.pkl')
 le_target = joblib.load('target_encoder.pkl')
 
-# Carrega os dados reais para popular os campos do formulário
-df = pd.read_csv('data/world_imdb_movies_top_movies_per_year.csv')
+# Obtém os valores válidos diretamente dos encoders treinados
+ratings = sorted(label_encoders['rating_mpa'].classes_)
+genres = sorted(label_encoders['genre_main'].classes_)
+countries = sorted(label_encoders['country_origin'].classes_)
+languages = sorted(label_encoders['language'].classes_)
 
-# Regex para capturar padrões válidos de duração como "1h 30min"
-def is_valid_duration(d):
-    return isinstance(d, str) and re.match(r'^\d{1,2}h(\s?\d{1,2}m(in)?)?$', d.strip().lower())
-
-# Prepara listas únicas e ordenadas para os selects
-durations = sorted(set(d for d in df['duration'].dropna() if is_valid_duration(d)))
-ratings = sorted(df['rating_mpa'].dropna().unique())
-ratings = [r for r in ratings if str(r).strip().lower() != 'nan' and str(r).strip() != '']
-genres = sorted(df['genre'].dropna().unique())
-countries = (
-    df['country_origin']
-    .dropna()
-    .apply(lambda x: [c.strip() for c in x.split(',')])
-    .explode()
-    .dropna()
-    .unique()
-)
-# Converte para lista e ordena
-countries = sorted(countries)
-languages = sorted(df['language'].dropna().unique())
 
 # Página inicial com o formulário
 @app.route('/')
 def index():
+
+    retorno = request.args.get('retorno')
+    if retorno:
+        dados = session.get('dados_preenchidos', {})
+    else:
+        # Se foi acesso normal (como atualização), limpa a sessão
+        session.pop('dados_preenchidos', None)
+        dados = {}
+
+
     return render_template('index.html',
-                           durations=durations,
                            ratings=ratings,
                            genres=genres,
                            countries=countries,
-                           languages=languages)
+                           languages=languages,
+                           dados_preenchidos=dados)
 
 # Rota que trata a previsão
 @app.route('/predict', methods=['POST'])
 def predict():
+    # Verifica se o formulário foi preenchido corretament
+    session['dados_preenchidos'] = request.form.to_dict()
+
     try:
         year = int(request.form['year'])
     except ValueError:
         return render_template('result.html', erro=True, mensagem="Formato inválido para o ano.")
 
-    # Valida o ano
-    if year < 1960 or year > 2024:
+    # O modelo foi treinado com dados de 1960 a 2024.
+    # Permitimos anos até 2026 para prever filmes que ainda serão lançados.
+    if year < 1960 or year > 2026:
         return render_template('result.html', erro=True, mensagem="Ano fora do intervalo permitido.")
 
-    duration = request.form['duration']
+    duration_min = int(request.form['duration'])
     rating_mpa = request.form['rating_mpa']
     genre = request.form['genre'].split(',')[0].strip()
     country = request.form['country']
     language = request.form['language'].split(',')[0].strip()
 
-
-    # Converte a duração para minutos
-    def duration_to_minutes(dur):
-        h = re.search(r"(\d+)h", dur)
-        m = re.search(r"(\d+)m", dur)
-        total = 0
-        if h:
-            total += int(h.group(1)) * 60
-        if m:
-            total += int(m.group(1))
-        return total
-
-    duration_min = duration_to_minutes(duration)
+    # Mostra os valores brutos recebidos do formulário
+    print("Valores recebidos do formulário:")
+    print("Ano:", year)
+    print("Duração (min):", duration_min)
+    print("Classificação MPA:", rating_mpa)
+    print("Gênero:", genre)
+    print("País de origem:", country)
+    print("Idioma:", language)
 
     # Codifica os campos com os LabelEncoders
     try:

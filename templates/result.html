@@ -56,12 +56,12 @@
         {% if erro %}
             <span style="font-size: 2rem;">⚠️</span>
             <h1>Ano fora do intervalo da base!</h1>
-            <p>Digite um ano entre 1960 e 2024.</p>
-            <a href="/">← Voltar ao início</a>
+            <p>Digite um ano entre 1960 e 2026.</p>
+            <a href="/?retorno=1">← Voltar ao início</a>
         {% else %}
             <h1>Resultado da Previsão</h1>
             <p>A classificação prevista para o filme é: <strong>{{ resultado }}</strong></p>
-            <a href="/">← Voltar ao início</a>
+            <a href="/?retorno=1">← Voltar ao início</a>
         {% endif %}
     </div>
 </body>
