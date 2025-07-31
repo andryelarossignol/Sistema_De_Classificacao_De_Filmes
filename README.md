@@ -4,7 +4,7 @@ Este é um sistema web simples construído com Flask que utiliza um modelo de ma
 
 ---
 
-## 🚀 Como rodar o projeto localmente
+## 🚀 Rodar o projeto localmente
 
 ### ✅ Pré-requisitos
 
