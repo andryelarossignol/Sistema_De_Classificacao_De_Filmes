@@ -21,11 +21,11 @@ Este é um sistema web simples construído com Flask que utiliza um modelo de ma
 git clone https://github.com/andryelarossignol/Sistema_De_Classificacao_De_Filmes.git
 cd Sistema_De_Classificacao_De_Filmes
 ```
- 2. **Crie um ambiente virtua:**
+ 2. **Crie um ambiente virtual:**
 ```bash
 python -m venv venv
 ```
- 3. **Ative o ambiente virtua:**
+ 3. **Ative o ambiente virtual:**
 ```bash
 venv\Scripts\activate
 ```
