@@ -4,6 +4,20 @@ Este é um sistema web simples construído com Flask que utiliza um modelo de ma
 
 ---
 
+<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/5247be29-9bfe-4d62-a03d-ccd57138ca8e" />
+
+<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/4847825d-2d14-409c-9a40-4b78911ea1b6" />
+
+<img width="1920" height="1080" alt="3" src="https://github.com/user-attachments/assets/712e452c-0281-4317-9ac1-56e5033fb8e0" />
+
+<img width="1920" height="1080" alt="4" src="https://github.com/user-attachments/assets/b615415b-c4a2-445f-aba6-d6362c025b63" />
+
+<img width="1920" height="1080" alt="5" src="https://github.com/user-attachments/assets/b58e79dc-332f-4663-aa1e-bd5588bbb8b7" />
+
+<img width="1920" height="1080" alt="6" src="https://github.com/user-attachments/assets/b6f31772-bf91-4d8f-8b54-fb532ebecb09" />
+
+---
+
 ## 🚀 Rodar o projeto localmente
 
 ### ✅ Pré-requisitos
