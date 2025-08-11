@@ -64,3 +64,8 @@ python app.py
 ```bash
 http://127.0.0.1:5000
 ```
+
+## 📷 Screenshots
+
+<img width="1624" height="973" alt="Captura de Tela 2025-08-11 às 09 24 17" src="https://github.com/user-attachments/assets/99d8a93a-bb12-4ec8-b1a5-8741ccf878f7" />
+
